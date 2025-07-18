@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import Dashboard from './components/Dashboard';
-import Header from './components/Header';
-import HeroSection from './components/HeroSection';
-import CarouselSection from './components/CarouselSection';
-import PerformanceSection from './components/PerformanceSection';
-import CTABanner from './components/CTABanner';
-import FloatingHelp from './components/FloatingHelp';
-import LoginPage from './components/LoginPage';
-import SignUpPage from './components/SignUpPage';
+import Header from './common/Header';
+import HeroSection from './landing/HeroSection';
+import CarouselSection from './landing/CarouselSection';
+import PerformanceSection from './landing/PerformanceSection';
+import CTABanner from './landing/CTABanner';
+import FloatingHelp from './common/FloatingHelp';
+import LoginPage from './auth/LoginPage';
+import SignUpPage from './auth/SignUpPage';
+import Dashboard from './dashboards/Dashboard';
 
 function App() {
   // Just useState('home') in JS, not useState<'home'|...>('home')
