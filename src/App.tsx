@@ -126,6 +126,6 @@ function App() {
               <button onClick={() => alert('Cookie Policy would be displayed here')} className="text-gray-400 hover:text-white transition-colors text-sm">Cookie Policy</button>
             </div>
           </div>
-        </div>
+      </footer>
   )
 }
