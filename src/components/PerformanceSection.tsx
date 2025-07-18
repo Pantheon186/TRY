@@ -59,7 +59,7 @@ const PerformanceSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50">
+    <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50" data-section="performance">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">

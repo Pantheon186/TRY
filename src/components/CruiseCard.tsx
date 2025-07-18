@@ -1,17 +1,19 @@
 import React from 'react';
-import { Calendar, Clock, MapPin, IndianRupee, Eye, X, Users, Star } from 'lucide-react';
+import { Calendar, Clock, MapPin, IndianRupee, Eye, X, Users, Star, CheckCircle } from 'lucide-react';
 import { Cruise } from '../data/cruises';
 
 interface CruiseCardProps {
   cruise: Cruise;
   onViewDetails: (cruise: Cruise) => void;
   onCancel: (cruiseId: string) => void;
+  isBooked?: boolean;
+  loading?: boolean;
 }
 
-const CruiseCard: React.FC<CruiseCardProps> = ({ cruise, onViewDetails, onCancel }) => {
+const CruiseCard: React.FC<CruiseCardProps> = ({ cruise, onViewDetails, onCancel, isBooked = false, loading = false }) => {
   // Handle cancel with confirmation
   const handleCancel = () => {
-    if (window.confirm(`Are you sure you want to cancel booking for ${cruise.name}?`)) {
+    if (isBooked && window.confirm(`Are you sure you want to cancel booking for ${cruise.name}?`)) {
       onCancel(cruise.id);
     }
   };
@@ -45,7 +47,15 @@ const CruiseCard: React.FC<CruiseCardProps> = ({ cruise, onViewDetails, onCancel
   };
 
   return (
-    <div className="bg-white/20 backdrop-blur-md rounded-2xl border border-white/30 shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:transform hover:scale-[1.02] mb-6">
+    <div className={`bg-white/20 backdrop-blur-md rounded-2xl border border-white/30 shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:transform hover:scale-[1.02] mb-6 ${isBooked ? 'ring-2 ring-green-400' : ''}`}>
+      {/* Booking Status Banner */}
+      {isBooked && (
+        <div className="bg-green-500 text-white px-4 py-2 text-sm font-medium flex items-center gap-2">
+          <CheckCircle size={16} />
+          <span>Booking Confirmed</span>
+        </div>
+      )}
+      
       {/* Horizontal Layout Container */}
       <div className="flex flex-col lg:flex-row">
         {/* Left Section - Cruise Details */}
@@ -158,19 +168,23 @@ const CruiseCard: React.FC<CruiseCardProps> = ({ cruise, onViewDetails, onCancel
           <div className="flex flex-col sm:flex-row gap-3">
             <button
               onClick={() => onViewDetails(cruise)}
+              disabled={loading}
               className="flex-1 flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg transition-colors duration-200 font-medium"
             >
               <Eye size={18} />
-              <span>View Details & Book</span>
+              <span>{isBooked ? 'View Booking Details' : 'View Details & Book'}</span>
             </button>
-            <button
-              onClick={handleCancel}
-              className="flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white py-3 px-4 rounded-lg transition-colors duration-200 font-medium"
-            >
-              <X size={18} />
-              <span className="hidden sm:inline">Cancel Booking</span>
-              <span className="sm:hidden">Cancel</span>
-            </button>
+            {isBooked && (
+              <button
+                onClick={handleCancel}
+                disabled={loading}
+                className="flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white py-3 px-4 rounded-lg transition-colors duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <X size={18} />
+                <span className="hidden sm:inline">{loading ? 'Cancelling...' : 'Cancel Booking'}</span>
+                <span className="sm:hidden">{loading ? 'Cancelling...' : 'Cancel'}</span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -198,6 +212,15 @@ const CruiseCard: React.FC<CruiseCardProps> = ({ cruise, onViewDetails, onCancel
               </div>
             </div>
 
+            {/* Booking Status Badge */}
+            {isBooked && (
+              <div className="absolute top-16 right-4">
+                <div className="bg-green-500/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                  <CheckCircle size={14} />
+                  <span>Booked</span>
+                </div>
+              </div>
+            )}
             {/* Bottom Gradient Overlay */}
             <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/60 to-transparent"></div>
             

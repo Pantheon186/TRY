@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Calendar, Users, Utensils, Bed, MapPin, Star } from 'lucide-react';
+import { X, Calendar, Users, Utensils, Bed, MapPin, Star, CheckCircle } from 'lucide-react';
 import { DatePicker } from 'antd';
 import { Hotel } from '../data/hotels';
 import dayjs, { Dayjs } from 'dayjs';
@@ -7,6 +7,8 @@ import dayjs, { Dayjs } from 'dayjs';
 interface HotelModalProps {
   hotel: Hotel;
   onClose: () => void;
+  onBookingSuccess?: (hotelId: string) => void;
+  isBooked?: boolean;
 }
 
 interface BookingForm {
@@ -21,9 +23,12 @@ interface BookingForm {
   address: string;
 }
 
-const HotelModal: React.FC<HotelModalProps> = ({ hotel, onClose }) => {
+const HotelModal: React.FC<HotelModalProps> = ({ hotel, onClose, onBookingSuccess, isBooked = false }) => {
   // Booking flow state
-  const [currentStep, setCurrentStep] = useState<'selection' | 'details' | 'confirmation'>('selection');
+  const [currentStep, setCurrentStep] = useState<'selection' | 'details' | 'confirmation'>(isBooked ? 'confirmation' : 'selection');
+  
+  // Loading state
+  const [loading, setLoading] = useState(false);
   
   // Form state
   const [bookingForm, setBookingForm] = useState<BookingForm>({
@@ -103,7 +108,12 @@ const HotelModal: React.FC<HotelModalProps> = ({ hotel, onClose }) => {
   };
 
   // Handle booking submission
-  const handleBookNow = () => {
+  const handleBookNow = async () => {
+    if (isBooked) {
+      onClose();
+      return;
+    }
+    
     // Validate form
     if (!bookingForm.name || !bookingForm.email || !bookingForm.phone || !bookingForm.address) {
       alert('Please fill in all required fields.');
@@ -124,10 +134,30 @@ const HotelModal: React.FC<HotelModalProps> = ({ hotel, onClose }) => {
       return;
     }
 
-    // Show confirmation
-    alert(`Hotel booking confirmed for ${hotel.name}!\n\nBooking Details:\n- Guest: ${bookingForm.name}\n- Check-in: ${bookingForm.checkInDate?.format('DD/MM/YYYY')}\n- Check-out: ${bookingForm.checkOutDate?.format('DD/MM/YYYY')}\n- Room: ${bookingForm.roomType}\n- Total: ${formatPrice(calculateTotalPrice())}\n\nA confirmation email will be sent to ${bookingForm.email}`);
+    setLoading(true);
     
-    onClose();
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Show confirmation step
+      setCurrentStep('confirmation');
+      
+      // Call success callback
+      if (onBookingSuccess) {
+        onBookingSuccess(hotel.id);
+      }
+      
+      // Auto close after showing confirmation
+      setTimeout(() => {
+        onClose();
+      }, 3000);
+      
+    } catch (error) {
+      alert('Booking failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Handle modal backdrop click
@@ -145,7 +175,10 @@ const HotelModal: React.FC<HotelModalProps> = ({ hotel, onClose }) => {
       <div className="bg-white/95 backdrop-blur-md rounded-2xl border border-white/30 shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         {/* Modal Header */}
         <div className="sticky top-0 bg-white/90 backdrop-blur-md border-b border-gray-200 p-6 flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-gray-800">{hotel.name}</h2>
+          <h2 className="text-2xl font-bold text-gray-800">
+            {hotel.name}
+            {isBooked && <span className="ml-2 text-green-600 text-lg">(Booked)</span>}
+          </h2>
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 rounded-full transition-colors"
@@ -196,8 +229,65 @@ const HotelModal: React.FC<HotelModalProps> = ({ hotel, onClose }) => {
             </div>
           </div>
 
+          {/* Booking Confirmation Step */}
+          {currentStep === 'confirmation' && (
+            <div className="text-center py-12">
+              <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="text-white" size={40} />
+              </div>
+              <h3 className="text-3xl font-bold text-gray-800 mb-4">
+                {isBooked ? 'Booking Details' : 'Booking Confirmed!'}
+              </h3>
+              {!isBooked && (
+                <p className="text-gray-600 mb-6">
+                  Thank you for booking with us! Your hotel reservation has been confirmed.
+                </p>
+              )}
+              
+              <div className="bg-gray-50 rounded-lg p-6 max-w-md mx-auto text-left">
+                <h4 className="font-semibold text-gray-800 mb-3">Booking Summary</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span>Hotel:</span>
+                    <span className="font-medium">{hotel.name}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Check-in:</span>
+                    <span>{bookingForm.checkInDate?.format('DD/MM/YYYY')}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Check-out:</span>
+                    <span>{bookingForm.checkOutDate?.format('DD/MM/YYYY')}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Nights:</span>
+                    <span>{calculateNights()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Room Type:</span>
+                    <span>{bookingForm.roomType}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Guests:</span>
+                    <span>{bookingForm.guestCount}</span>
+                  </div>
+                  <hr className="my-3" />
+                  <div className="flex justify-between text-lg font-bold text-green-600">
+                    <span>Total Paid:</span>
+                    <span>{formatPrice(calculateTotalPrice())}</span>
+                  </div>
+                </div>
+              </div>
+              
+              {!isBooked && (
+                <p className="text-sm text-gray-500 mt-4">
+                  A confirmation email has been sent to {bookingForm.email}
+                </p>
+              )}
+            </div>
+          )}
           {/* Selection Step */}
-          {currentStep === 'selection' && (
+          {currentStep === 'selection' && !isBooked && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Left Column - Selection Options */}
               <div className="lg:col-span-2 space-y-6">
@@ -344,7 +434,7 @@ const HotelModal: React.FC<HotelModalProps> = ({ hotel, onClose }) => {
           )}
 
           {/* Details Step */}
-          {currentStep === 'details' && (
+          {currentStep === 'details' && !isBooked && (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Left Column - Guest Form */}
               <div className="lg:col-span-2 space-y-6">
@@ -453,9 +543,10 @@ const HotelModal: React.FC<HotelModalProps> = ({ hotel, onClose }) => {
 
                 <button
                   onClick={handleBookNow}
-                  className="w-full mt-6 bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg transition-colors duration-200 font-medium"
+                  disabled={loading}
+                  className="w-full mt-6 bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg transition-colors duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Book Now
+                  {loading ? 'Processing...' : 'Book Now'}
                 </button>
               </div>
             </div>

@@ -6,6 +6,14 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
+  const handleAboutClick = () => {
+    // Scroll to performance section
+    const performanceSection = document.querySelector('[data-section="performance"]');
+    if (performanceSection) {
+      performanceSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20">
       <div className="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
@@ -19,12 +27,12 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
 
         {/* Navigation Links */}
         <nav className="flex items-center gap-6">
-          <a 
-            href="#about" 
+          <button 
+            onClick={handleAboutClick}
             className="text-white/90 hover:text-white transition-colors duration-200 font-medium hidden md:block"
           >
             About Us
-          </a>
+          </button>
           <button 
             onClick={() => onNavigate('login')}
             className="text-white/90 hover:text-white transition-colors duration-200 font-medium px-4 py-2 rounded-lg border border-white/30 hover:bg-white/10"

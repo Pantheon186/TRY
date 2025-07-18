@@ -72,9 +72,19 @@ const HotelDashboard: React.FC<HotelDashboardProps> = ({ userRole, onLogout, onB
     setSelectedHotel(hotel);
   };
 
-  const handleBookmarkHotel = (hotelId: string) => {
-    console.log('Bookmarking hotel:', hotelId);
-    // In a real app, this would make an API call
+  const handleBookmarkHotel = async (hotelId: string) => {
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 500));
+      alert('Hotel bookmarked successfully!');
+    } catch (error) {
+      alert('Failed to bookmark hotel. Please try again.');
+    }
+  };
+
+  // Handle successful booking
+  const handleBookingSuccess = (hotelId: string) => {
+    alert('Hotel booking confirmed successfully!');
   };
 
   const handleCloseModal = () => {
@@ -185,6 +195,7 @@ const HotelDashboard: React.FC<HotelDashboardProps> = ({ userRole, onLogout, onB
         <HotelModal
           hotel={selectedHotel}
           onClose={handleCloseModal}
+          onBookingSuccess={handleBookingSuccess}
         />
       )}
     </div>

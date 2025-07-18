@@ -181,7 +181,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggle, userRole, onLo
         </div>
 
         {/* Bottom Section - Actions */}
-        <div className="mt-auto p-4 space-y-2">
+        <div className="mt-auto space-y-2">
           <button 
             onClick={onViewProfile}
             className={`w-full flex items-center ${isCollapsed ? 'justify-center' : 'gap-2'} px-3 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors`}

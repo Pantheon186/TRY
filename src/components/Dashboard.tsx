@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button, notification } from 'antd';
 import Sidebar from './Sidebar';
 import TopNavbar from './TopNavbar';
 import SearchSection from './SearchSection';
@@ -30,6 +31,12 @@ const Dashboard: React.FC<DashboardProps> = ({ userRole, onLogout }) => {
   
   // Active section state
   const [activeSection, setActiveSection] = useState('Cruises');
+  
+  // Loading states
+  const [loading, setLoading] = useState(false);
+  
+  // Bookings state (mock data for demonstration)
+  const [userBookings, setUserBookings] = useState<string[]>([]);
   
   // Search filters state
   const [searchFilters, setSearchFilters] = useState<SearchFilters>({
@@ -76,9 +83,39 @@ const Dashboard: React.FC<DashboardProps> = ({ userRole, onLogout }) => {
     setSelectedCruise(cruise);
   };
 
-  const handleCancelBooking = (cruiseId: string) => {
-    console.log('Cancelling booking for cruise:', cruiseId);
-    // In a real app, this would make an API call
+  const handleCancelBooking = async (cruiseId: string) => {
+    setLoading(true);
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Remove from user bookings
+      setUserBookings(prev => prev.filter(id => id !== cruiseId));
+      
+      notification.success({
+        message: 'Booking Cancelled',
+        description: 'Your cruise booking has been successfully cancelled.',
+        placement: 'topRight'
+      });
+    } catch (error) {
+      notification.error({
+        message: 'Cancellation Failed',
+        description: 'Unable to cancel booking. Please try again.',
+        placement: 'topRight'
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Handle successful booking
+  const handleBookingSuccess = (cruiseId: string) => {
+    setUserBookings(prev => [...prev, cruiseId]);
+    notification.success({
+      message: 'Booking Confirmed',
+      description: 'Your cruise booking has been confirmed successfully!',
+      placement: 'topRight'
+    });
   };
 
   const handleCloseModal = () => {
@@ -245,6 +282,11 @@ const Dashboard: React.FC<DashboardProps> = ({ userRole, onLogout }) => {
           <div className="mb-6">
             <p className="text-gray-600">
               Showing {filteredCruises.length} of {cruises.length} cruises
+              {userBookings.length > 0 && (
+                <span className="ml-4 text-blue-600">
+                  • {userBookings.length} active booking{userBookings.length !== 1 ? 's' : ''}
+                </span>
+              )}
             </p>
           </div>
 
@@ -256,6 +298,8 @@ const Dashboard: React.FC<DashboardProps> = ({ userRole, onLogout }) => {
                 cruise={cruise}
                 onViewDetails={handleViewDetails}
                 onCancel={handleCancelBooking}
+                isBooked={userBookings.includes(cruise.id)}
+                loading={loading}
               />
             ))}
           </div>
@@ -279,6 +323,8 @@ const Dashboard: React.FC<DashboardProps> = ({ userRole, onLogout }) => {
         <CruiseModal
           cruise={selectedCruise}
           onClose={handleCloseModal}
+          onBookingSuccess={handleBookingSuccess}
+          isBooked={userBookings.includes(selectedCruise.id)}
         />
       )}
     </div>

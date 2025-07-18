@@ -33,6 +33,34 @@ const SignUpPage: React.FC<SignUpPageProps> = ({ onNavigate }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Comprehensive validation
+    if (!formData.fullName.trim()) {
+      alert('Please enter your full name.');
+      return;
+    }
+    
+    if (!formData.email.trim()) {
+      alert('Please enter your email address.');
+      return;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    
+    if (!formData.phone.trim()) {
+      alert('Please enter your phone number.');
+      return;
+    }
+    
+    if (!formData.company.trim()) {
+      alert('Please enter your company name.');
+      return;
+    }
+    
     // Basic validation
     if (formData.password !== formData.confirmPassword) {
       alert('Passwords do not match!');

@@ -45,7 +45,8 @@ import {
   Tabs,
   Chart
 } from 'antd';
-import { basicAdmins, agents, complaints, offers, bookings, performanceMetrics } from '../data/admins';
+import { basicAdmins, agents, complaints, offers } from '../data/admins';
+import { bookings, performanceMetrics } from '../data/bookings';
 import type { BasicAdmin, Agent, Complaint, Offer } from '../data/admins';
 
 interface SuperAdminDashboardProps {

@@ -22,10 +22,12 @@ import {
   Home
 } from 'lucide-react';
 import { Table, Modal, Form, Input, Select, Button, Card, Statistic, Progress, Tag, Rate } from 'antd';
-import { agents, complaints, offers, bookings, performanceMetrics } from '../data/admins';
+import { agents, complaints, offers } from '../data/admins';
+import { bookings, performanceMetrics } from '../data/bookings';
 import { cruises } from '../data/cruises';
 import { hotels } from '../data/hotels';
-import type { Agent, Complaint, Offer, Booking } from '../data/admins';
+import type { Agent, Complaint, Offer } from '../data/admins';
+import type { Booking } from '../data/bookings';
 
 interface BasicAdminDashboardProps {
   userRole: string;

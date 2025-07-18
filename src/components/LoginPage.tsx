@@ -55,6 +55,12 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLoginSuccess }) => 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Basic validation
+    if (!formData.email || !formData.password) {
+      alert('Please fill in all fields.');
+      return;
+    }
+    
     // Find matching demo credential
     const matchedCredential = demoCredentials.find(
       cred => cred.email === formData.email && cred.password === formData.password
@@ -64,7 +70,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onLoginSuccess }) => 
       // Call the login success handler with the user role
       onLoginSuccess(matchedCredential.role);
     } else {
-      alert('Invalid credentials. Please use the demo credentials provided.');
+      alert('Invalid credentials. Please use the demo credentials provided or check your email and password.');
     }
   };
 

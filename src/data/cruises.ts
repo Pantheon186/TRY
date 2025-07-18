@@ -145,6 +145,38 @@ export const cruises: Cruise[] = [
     shipType: "Premium Ship",
     cruiseLine: "Holland America Line"
   }
+  {
+    id: "9",
+    name: "Anthem of the Seas",
+    image: "https://images.pexels.com/photos/1320684/pexels-photo-1320684.jpeg",
+    from: "Mumbai",
+    to: "Dubai",
+    duration: 8,
+    departureDates: ["2024-04-12", "2024-04-19", "2024-04-26", "2024-05-03"],
+    amenities: ["Sky Diving Simulator", "Robot Bartenders", "Bumper Cars", "Surf Simulator", "Rock Climbing"],
+    pricePerPerson: 65000,
+    roomTypes: ["Interior", "Ocean View", "Balcony", "Suite", "Penthouse"],
+    mealPlans: ["All Inclusive", "Premium Plus", "Basic Plus"],
+    description: "Revolutionary cruise ship with cutting-edge technology and thrilling activities.",
+    shipType: "Quantum Class",
+    cruiseLine: "Royal Caribbean"
+  },
+  {
+    id: "10",
+    name: "Seabourn Encore",
+    image: "https://images.pexels.com/photos/1078981/pexels-photo-1078981.jpeg",
+    from: "Chennai",
+    to: "Colombo",
+    duration: 6,
+    departureDates: ["2024-04-15", "2024-04-22", "2024-04-29", "2024-05-06"],
+    amenities: ["Ultra-Luxury Suites", "Personal Butler", "Michelin-Star Dining", "Marina Platform", "Spa Terrace"],
+    pricePerPerson: 95000,
+    roomTypes: ["Ocean View", "Balcony", "Suite", "Penthouse"],
+    mealPlans: ["All Inclusive", "Premium Plus"],
+    description: "Ultra-luxury small ship cruising with personalized service and exclusive experiences.",
+    shipType: "Ultra-Luxury",
+    cruiseLine: "Seabourn"
+  }
 ];
 
 // Mock filter data

@@ -3,12 +3,16 @@ import { ArrowRight, Compass, Sparkles } from 'lucide-react';
 
 const CTABanner: React.FC = () => {
   const handleStartExploring = () => {
-    // Scroll to top or navigate to dashboard/booking page
+    // Scroll to top to access login
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    // In a real application, this would navigate to the booking dashboard
-    setTimeout(() => {
-      alert('Redirecting to booking dashboard...');
-    }, 1000);
+  };
+
+  const handleViewDestinations = () => {
+    // Scroll to carousel section
+    const carouselSection = document.querySelector('[data-section="carousel"]');
+    if (carouselSection) {
+      carouselSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -69,7 +73,10 @@ const CTABanner: React.FC = () => {
             <ArrowRight className="group-hover:translate-x-2 transition-transform duration-300" size={24} />
           </button>
           
-          <button className="group text-white border-2 border-white/40 px-10 py-5 rounded-2xl font-bold text-xl hover:bg-white/10 hover:border-white/60 transition-all duration-300 backdrop-blur-sm">
+          <button 
+            onClick={handleViewDestinations}
+            className="group text-white border-2 border-white/40 px-10 py-5 rounded-2xl font-bold text-xl hover:bg-white/10 hover:border-white/60 transition-all duration-300 backdrop-blur-sm"
+          >
             View Destinations
           </button>
         </div>

@@ -165,6 +165,36 @@ export const hotels: Hotel[] = [
     description: "Comfortable and affordable accommodation with essential amenities for business travelers.",
     hotelType: "Budget",
     hotelChain: "FabHotels"
+  },
+  {
+    id: "11",
+    name: "Ritz-Carlton Mumbai",
+    location: "Mumbai, Maharashtra",
+    image: "https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg",
+    starRating: 5,
+    pricePerNight: 45000,
+    availableRoomTypes: ["Deluxe Room", "Club Level", "Executive Suite", "Presidential Suite"],
+    mealPlans: ["Room Only", "Breakfast Included", "Half Board", "Full Board"],
+    amenities: ["Spa", "Pool", "Gym", "Wi-Fi", "AC", "Parking", "Pet Friendly", "Garden"],
+    availableFrom: ["2024-04-12", "2024-04-19", "2024-04-26", "2024-05-03"],
+    description: "Legendary luxury hotel with impeccable service and stunning city views.",
+    hotelType: "Luxury",
+    hotelChain: "Ritz-Carlton"
+  },
+  {
+    id: "12",
+    name: "Four Seasons Bengaluru",
+    location: "Bangalore, Karnataka",
+    image: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg",
+    starRating: 5,
+    pricePerNight: 28000,
+    availableRoomTypes: ["Premier Room", "Executive Suite", "Four Seasons Suite"],
+    mealPlans: ["Room Only", "Breakfast Included", "Half Board"],
+    amenities: ["Spa", "Pool", "Gym", "Wi-Fi", "AC", "Parking", "Garden"],
+    availableFrom: ["2024-04-15", "2024-04-22", "2024-04-29", "2024-05-06"],
+    description: "Contemporary luxury in India's Silicon Valley with world-class amenities.",
+    hotelType: "Luxury",
+    hotelChain: "Four Seasons"
   }
 ];
 

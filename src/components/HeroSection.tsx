@@ -10,8 +10,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
     if (onNavigate) {
       onNavigate('login');
     } else {
-      alert('Login functionality would be implemented here!');
+      // Scroll to features section
+      const featuresSection = document.getElementById('features');
+      if (featuresSection) {
+        featuresSection.scrollIntoView({ behavior: 'smooth' });
+      }
     }
+  };
+
+  const handleWatchExperience = () => {
+    // In a real app, this would open a video modal
+    window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
   };
 
   return (
@@ -63,7 +72,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
               <ArrowRight className="group-hover:translate-x-1 transition-transform duration-200" size={20} />
             </button>
             
-            <button className="group text-white border-2 border-white/30 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 transition-all duration-300 flex items-center gap-2">
+            <button 
+              onClick={handleWatchExperience}
+              className="group text-white border-2 border-white/30 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 transition-all duration-300 flex items-center gap-2"
+            >
               <Play size={20} />
               Watch Experience
             </button>

@@ -138,6 +138,46 @@ export const bookings: Booking[] = [
     guests: 1,
     specialRequests: "Business center access needed",
     region: "Chennai"
+  },
+  {
+    id: "BK007",
+    type: "Cruise",
+    itemId: "9",
+    itemName: "Anthem of the Seas",
+    agentId: "ag1",
+    agentName: "John Smith",
+    customerName: "Neha Patel",
+    customerEmail: "neha.patel@email.com",
+    customerPhone: "+91 9876543216",
+    bookingDate: "2024-03-15",
+    travelDate: "2024-04-12",
+    status: "Confirmed",
+    totalAmount: 130000,
+    commissionAmount: 6500,
+    paymentStatus: "Paid",
+    guests: 2,
+    specialRequests: "Anniversary celebration",
+    region: "Delhi"
+  },
+  {
+    id: "BK008",
+    type: "Hotel",
+    itemId: "11",
+    itemName: "Ritz-Carlton Mumbai",
+    agentId: "ag3",
+    agentName: "Sneha Reddy",
+    customerName: "Vikram Singh",
+    customerEmail: "vikram.singh@email.com",
+    customerPhone: "+91 9876543217",
+    bookingDate: "2024-03-18",
+    travelDate: "2024-04-15",
+    status: "Pending",
+    totalAmount: 180000,
+    commissionAmount: 9000,
+    paymentStatus: "Pending",
+    guests: 2,
+    specialRequests: "Executive floor preferred",
+    region: "Chennai"
   }
 ];
 

@@ -1,7 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, Calendar, Ship, Settings, Train, HotelIcon, FlashlightIcon } from 'lucide-react';
-import { GiArrowFlights } from 'react-icons/gi';
-import { TbHotelService } from 'react-icons/tb';
+import { Ship, Train, Plane, Building } from 'lucide-react';
 
 interface NavItem {
   icon: React.ReactNode;
@@ -17,11 +15,11 @@ interface TopNavbarProps {
 const TopNavbar: React.FC<TopNavbarProps> = ({ activeSection, onSectionChange }) => {
   const navItems: NavItem[] = [
     {
-      icon: <HotelIcon size={24} />,
+      icon: <Building size={24} />,
       label: 'Hotels'
     },
     {
-      icon: <FlashlightIcon size={24} />,
+      icon: <Plane size={24} />,
       label: 'Flights'
     },
     {
@@ -34,6 +32,14 @@ const TopNavbar: React.FC<TopNavbarProps> = ({ activeSection, onSectionChange })
     }
   ];
 
+  const handleSectionClick = (label: string) => {
+    if (label === 'Flights' || label === 'Trains') {
+      // Show coming soon message for unimplemented sections
+      alert(`${label} booking feature is coming soon! Currently available: Cruises and Hotels.`);
+      return;
+    }
+    onSectionChange(label);
+  };
   return (
     <nav className="bg-white/20 backdrop-blur-md border-b border-white/30 shadow-sm">
       <div className="px-6 py-4">
@@ -41,12 +47,12 @@ const TopNavbar: React.FC<TopNavbarProps> = ({ activeSection, onSectionChange })
           {navItems.map((item, index) => (
             <button
               key={index}
-              onClick={() => onSectionChange(item.label)}
+              onClick={() => handleSectionClick(item.label)}
               className={`
                 flex flex-col items-center gap-2 p-4 rounded-lg transition-all duration-200
                 ${activeSection === item.label 
                   ? 'bg-blue-500 text-white shadow-lg transform scale-105' 
-                  : 'bg-white/30 text-gray-700 hover:bg-white/50 hover:shadow-md'
+                  : 'bg-white/30 text-gray-700 hover:bg-white/50 hover:shadow-md hover:scale-102'
                 }
               `}
             >

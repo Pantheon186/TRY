@@ -60,10 +60,10 @@ function App() {
 
         {/* Performance & Awards Section */}
         <PerformanceSection />
-
-        {/* Call-to-Action Banner */}
-        <CTABanner />
-      </main>
+                  <li><button onClick={() => handleNavigation('login')} className="hover:text-white transition-colors">Luxury Cruises</button></li>
+                  <li><button onClick={() => handleNavigation('login')} className="hover:text-white transition-colors">Premium Flights</button></li>
+                  <li><button onClick={() => handleNavigation('login')} className="hover:text-white transition-colors">5-Star Hotels</button></li>
+                  <li><button onClick={() => handleNavigation('login')} className="hover:text-white transition-colors">Holiday Packages</button></li>
 
       {/* Floating Help Widget */}
       <FloatingHelp />
@@ -71,13 +71,13 @@ function App() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {/* Company Info */}
+                  <li><a href="mailto:support@yorkeholidays.com" className="hover:text-white transition-colors">📧 support@yorkeholidays.com</a></li>
+                  <li><a href="tel:+919876543210" className="hover:text-white transition-colors">📞 +91 98765 43210</a></li>
             <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-teal-400 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">Y</span>
-                </div>
+                  <li><button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-white transition-colors">About Us</button></li>
+                  <li><button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="hover:text-white transition-colors">Destinations</button></li>
+                  <li><button onClick={() => handleNavigation('login')} className="hover:text-white transition-colors">Cruise Lines</button></li>
+                  <li><button onClick={() => handleNavigation('login')} className="hover:text-white transition-colors">Special Offers</button></li>
                 <span className="text-xl font-bold">Yorker Holidays</span>
               </div>
               <p className="text-gray-400 text-sm leading-relaxed">
@@ -122,9 +122,9 @@ function App() {
 
           {/* Bottom Bar */}
           <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">
-              © 2024 Yorker Holidays Services Pvt Ltd. All rights reserved. Built with React & Tailwind CSS.
-            </p>
+                <button onClick={() => alert('Privacy Policy would be displayed here')} className="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</button>
+                <button onClick={() => alert('Terms of Service would be displayed here')} className="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</button>
+                <button onClick={() => alert('Cookie Policy would be displayed here')} className="text-gray-400 hover:text-white transition-colors text-sm">Cookie Policy</button>
             <div className="flex gap-4 mt-4 md:mt-0">
               <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
               <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
